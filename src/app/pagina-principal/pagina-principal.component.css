@@ -1,0 +1,35 @@
+.nav-barra{
+    background-color: #DAD3BE;
+
+    max-height: 200px;
+    overflow: auto;
+    
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.nav-barra::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.contenido-pagina{
+    padding-top: 46px;
+}
+
+.barra-lateral-contenido{
+    height: auto;
+}
+
+@media (min-width: 768px) {
+    .barra-lateral-contenido{
+        height: 100%;
+    }   
+
+    .nav-barra{
+        max-height: 100%;
+    }
+    
+}
+
+
+

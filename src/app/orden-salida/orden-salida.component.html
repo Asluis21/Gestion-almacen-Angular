@@ -1,0 +1,122 @@
+<h2>Orden de Salida</h2>
+<hr>
+<div class="row justify-content-end">
+
+    
+    <div class="col-12 col-md-7">
+        <!-- FORMULARIO PARA RETIRAR -->
+        <form [formGroup]="orden">
+            <div class="mb-3 col-12">
+                <label for="destino" class="form-label">Destino</label>
+                <input type="text" class="form-control" id="destino" formControlName="destino">
+    
+                @if ((camposOrden['destino'].touched && camposOrden['destino'].errors)) {
+                    <div class="alert alert-danger mt-2">
+        
+                    @if (camposOrden['destino'].errors['required']) {
+                        <span>El destino es necesario</span>
+                    }
+                    
+                    @if (camposOrden['destino'].errors['minlength']) {
+                        <span>El destino tiene que tener al menos 5 caracteres</span>
+                    }
+                    </div>
+                }
+    
+            </div>
+    
+            <div class="mb-3 col-12">
+                <textarea class="form-control" placeholder="Observaciones" id="obser" style="height: 100px" formControlName="observacion"></textarea>
+            </div>
+
+            <div class="col-12 col-md-3">
+                <button class="btn btn-primary w-100" (click)="ingresarOrden()">Ingresar orden de salida</button>
+            </div>
+        </form>
+
+        <!-- BUSCADOR -->
+        <div class="col-12 my-2">
+            <hr>
+            <form>
+                <label for="buscar" class="form-label">Buscador</label>
+                <input  type="text" class="form-control" id="buscar" placeholder="Buscar" (keyup)="searchTerm$.next(($any($event.target).value))">
+
+                <!-- <input  #consultaBuscador type="text" class="form-control" id="buscar"> -->
+            </form>
+        </div>
+    
+        <!-- LISTA PRODUCTOS -->
+        <div class="col-12 table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th scope="col">Descripción</th>
+                      <th scope="col">Serie</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Condición del producto</th>
+                      <th scope="col">Ubicación</th>
+                      <th scope="col">Almacén</th>
+                      <th scope="col">+</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    @for (producto of productosFiltered; track producto) {
+                        <tr>
+                            <td>{{producto.descripcion}}</td>
+                            <td>{{producto.serie}}</td>
+                            <td>{{producto.cantidad}}</td>
+                            <td>{{producto.estadoProducto}}</td>
+                            <td>{{producto.ubicacion}}</td>
+                            <td>{{producto.almacen.nombre}}</td>
+                            <td><button class="btn btn-success" (click)="agregar(producto.id)">Agregar</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-5 border-start productos-retiro">
+        <!-- PRODUCTOS A RETIRAR -->
+         <h3>Productos a retirar</h3>
+        <form [formGroup]="productosRetiro">
+            <div class="col-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                          <!-- <th scope="col">ID</th> -->
+                          <th scope="col">Descripción</th>
+                          <th scope="col">Cantidad</th>
+                          <th scope="col">Cantidad retiro</th>
+                          <th scope="col">Peso</th>
+                          <th scope="col">Estado producto</th>
+                          <th scope="col">Ubicación</th>
+                          <th scope="col">Almacén</th>
+                          <th scope="col">-</th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="productos">
+    
+                            @for (producto of productosFormArray.controls; track producto; let i = $index) {
+                                <tr [formGroupName]="i">
+                                    <!-- <td>{{producto.value['id']}}</td> -->
+                                    <td>{{producto.value['descripcion']}}</td>
+                                    <td>{{producto.value['cantidad']}}</td>
+                                    <td><input type="number" formControlName="ultimaCantidadRetirada" class="cantidadRetiro"></td>
+                                    <td><input type="text" formControlName="peso" class="cantidadRetiro"></td>
+                                    <td>{{producto.value['estadoProducto']}}</td>
+                                    <td>{{producto.value['ubicacion']}}</td>
+                                    <td>{{producto.value['almacen'].nombre}}</td>
+                                    <td><button class="btn btn-danger" (click)="quitar(producto.value['id'])">Quitar</button></td>
+                                </tr>
+                            }
+                    </tbody>
+                    
+                </table>
+            </div>
+        </form> 
+    </div>
+</div>
+    
+

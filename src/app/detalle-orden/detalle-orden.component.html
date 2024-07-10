@@ -1,0 +1,166 @@
+<div class="row">
+    <h3>{{'Detalle orden ' + tipoOrden}}</h3>
+    
+    <div class="col-12">
+        <hr>
+
+        <h4>Orden</h4>
+        <form>
+            <div class="row">
+
+                @if (tipoOrden == 'entrada') {
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="fecha_entrada">Fecha de entrada</label>
+                        <input readonly class="form-control" type="text" name="fecha_entrada" id="fecha_entrada" [(ngModel)]="orden.fechaEntrada">
+                    </div>
+
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="punto_llegada">Punto de llegada</label>
+                        <input readonly class="form-control" type="text" name="punto_llegada" id="punto_llegada" [(ngModel)]="orden.puntoLlegada">
+                    </div>
+                }@else {
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="fecha_salida">Fecha de salida</label>
+                        <input readonly class="form-control" type="text" name="fecha_salida" id="fecha_salida" [(ngModel)]="orden.fechaSalida">
+                    </div>
+    
+                    
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="destino">Destino</label>
+                        <input readonly class="form-control" type="text" name="destino" id="destino" [(ngModel)]="orden.destino">
+                    </div>
+                }
+                
+
+                <div class="col-12 mb-3">
+                    <label class="form-label" for="observacion">Observacion</label>
+                    
+                    <textarea readonly class="form-control" name="observacion" id="observacion" [(ngModel)]="orden.observacion"></textarea>
+                    <!-- @if (orden.observacion != null) {
+                    }@else {
+                        <textarea readonly class="form-control" name="observacion" id="observacion"></textarea>
+                    } -->
+
+                </div>
+
+            </div>
+        </form>
+
+        @if (tipoOrden == 'entrada') {
+            <hr>
+            <h4>Proveedor</h4>
+            
+            <form>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input readonly class="form-control" type="text" name="nombre" id="nombre" [(ngModel)]="orden.proveedor.nombre">
+                    </div>
+                    
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="ruc">RUC</label>
+                        <input readonly class="form-control" type="text" name="ruc" id="ruc" [(ngModel)]="orden.proveedor.ruc">
+                    </div>
+                </div>
+            </form>
+        }
+
+        <hr>
+        <h4>Usuario</h4>
+        <div class="col-12">
+            <form>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="username">Username</label>
+                        <input readonly class="form-control" type="text" name="username" id="username" [(ngModel)]="orden.usuario.username">
+                    </div>
+                    
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input readonly class="form-control" type="text" name="nombre" id="nombre" [(ngModel)]="orden.usuario.nombre">
+                    </div>
+                    
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="apellido_paterno">Apellido Paterno</label>
+                        <input readonly class="form-control" type="text" name="apellido_paterno" id="apellido_paterno" [(ngModel)]="orden.usuario.apellidoPaterno">
+                    </div>
+                    
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="apellido_materno">Apellido Materno</label>
+                        <input readonly class="form-control" type="text" name="apellido_materno" id="apellido_materno" [(ngModel)]="orden.usuario.apellidoMaterno">
+                    </div>
+                    
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="dni">DNI</label>
+                        <input readonly class="form-control" type="text" name="dni" id="dni" [(ngModel)]="orden.usuario.dni">
+                    </div>
+                    
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="rol">Rol</label>
+                        <input readonly class="form-control" type="text" name="rol" id="rol" [(ngModel)]="orden.usuario.rol.nombre">
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+
+        <hr>
+        <h4>Productos</h4>
+        <div class="col-12 b">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Estado producto</th>
+                        <th scope="col">Almacén</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Serie</th>
+                        <th scope="col">Ubicación</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (tipoOrden == "entrada" && tipoOrden) {
+                    
+                        @for (i of orden.productos; track i) {
+                            <tr>
+                                <td>{{i.descripcion}}</td>
+                                <td>{{i.cantidad}}</td>
+                                <td>{{i.estadoProducto}}</td>
+                                <td>{{i.almacen.nombre}}</td>
+                                <td>{{i.categoria.nombre}}</td>
+                                <td>{{i.peso}}</td>
+                                <td>{{i.serie}}</td>
+                                <td>{{i.ubicacion}}</td>
+                            </tr>
+                        }
+    
+                    }@else {
+                        @for (i of orden.productos; track i) {
+                            <tr>
+                                <td>{{i.descripcion}}</td>
+                                <td>{{i.cantidad}}</td>
+                                <td>{{i.estadoProducto}}</td>
+                                <td>{{i.almacen.nombre}}</td>
+                                <td>{{i.categoria.nombre}}</td>
+                                <td>{{i.peso}}</td>
+                                <td>{{i.serie}}</td>
+                                <!-- @if(i.serie != null){
+                                }@else {
+                                    <td></td>
+                                } -->
+                                <td>{{i.ubicacion}}</td>
+                            </tr>
+                        }
+                    }
+    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

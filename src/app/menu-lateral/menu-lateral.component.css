@@ -1,0 +1,37 @@
+nav .col{
+    background-color: #DAD3BE;
+}
+
+nav a{
+    padding: 10px;
+    color: rgba(0, 0, 0, .9);
+    font-size: 16px;
+    text-decoration: none;
+}
+
+
+nav .menu-body{
+    min-height: 100%;
+}
+
+.contenedor-link a{
+    padding: 0;
+}
+
+.contenedor-link{
+    padding: 10px;
+}
+
+.link-contenido{
+    border-radius: 25px;
+    padding: 5px;
+}
+
+.link-contenido:hover{
+    color: #000;
+    opacity: 1;
+    background-color: #B7B597;
+
+    
+}
+

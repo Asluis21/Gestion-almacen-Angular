@@ -1,0 +1,297 @@
+<form [formGroup]="orden">
+    <h2>Nueva orden de entrada</h2>
+    <hr>
+    <div class="row justify-content-end">
+        <!-- <div class="mb-3 col-12 col-md-6">
+          <label for="fecha-ingreso" class="form-label">Fecha de Ingreso</label>
+          <input type="date" class="form-control" id="fecha-ingreso" formControlName="fechaIngreso">
+
+        @if ((camposOrden['fechaIngreso'].touched && camposOrden['fechaIngreso'].errors)) {
+            <div class="alert alert-danger mt-2">
+
+            @if (camposOrden['fechaIngreso'].errors['required']) {
+                <span>La fecha de ingreso es necesaria</span>
+            }
+            </div>
+        }
+        </div> -->
+        
+        <div class="mb-3 col-12">
+            <label for="proveedor" class="form-label">Proveedor</label>
+            <select id="proveedor" class="form-select" formControlName="proveedor">
+                @for (prov of proveedores; track prov) {
+                    <option value="{{prov.id}}">{{prov.nombre}}</option>
+                }
+            </select>
+
+            @if ((camposOrden['proveedor'].touched && camposOrden['proveedor'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposOrden['proveedor'].errors['required']) {
+                    <span>El proveedor es necesario</span>
+                }
+                </div>
+            }
+        </div>
+
+        <div class="mb-3 col-12">
+            <label for="punto-llegada" class="form-label">Dirección punto de llegada</label>
+            <input type="text" class="form-control" id="punto-llegada" formControlName="puntoLlegada">
+
+            @if ((camposOrden['puntoLlegada'].touched && camposOrden['puntoLlegada'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposOrden['puntoLlegada'].errors['required']) {
+                    <span>La dirección es necesaria</span>
+                }
+                
+                @if (camposOrden['puntoLlegada'].errors['minlength']) {
+                    <span>La dirección tiene que tener al menos 5 caracteres</span>
+                }
+                </div>
+            }
+
+        </div>
+
+        <div class="mb-3 col-12">
+            <textarea class="form-control" placeholder="Observaciones" id="obser" style="height: 100px" formControlName="observacion"></textarea>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <input class="btn btn-success w-100" type="button" value="Guardar Orden" (click)="guardarOrder()">
+        </div>
+
+        <!-- PRODUCTOS A INGRESAR -->
+         <h3>Productos a Ingresar</h3>
+        <div class="col-12 table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th scope="col">Descripción</th>
+                      <th scope="col">Serie</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Categoría</th>
+                      <th scope="col">Condición del Producto</th>
+                      <th scope="col">Ubicación</th>
+                      <th scope="col">Almacén</th>
+                      <th scope="col">-</th>
+                    </tr>
+                  </thead>
+                
+                  <tbody>
+                    @for (ar of productos; track ar) {
+                    <tr>
+                        <td>{{ar.descripcion}}</td>
+                        <td>{{ar.serie}}</td>
+                        <td>{{ar.cantidad}}</td>
+                        <td>{{ar.categoria.nombre}}</td>
+                        <td>{{ar.estadoProducto}}</td>
+                        <td>{{ar.ubicacion}}</td>
+                        <td>{{ar.almacen.nombre}}</td>
+                        <td><button class="btn btn-danger" (click)="eliminarProducto(ar.id)">Eliminar</button></td>
+                    </tr>
+                    }
+                  </tbody>
+            </table>
+        </div>
+        
+    </div>
+    
+    
+</form>
+
+    <h2>Registrar Productos</h2>
+    <hr>
+
+<form [formGroup]="producto">
+    <div class="row">
+
+        <div class="mb-3 col-12 col-md-6">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+
+            @if ((camposArticulo['descripcion'].touched && camposArticulo['descripcion'].errors)) {
+                <div class="alert alert-danger mt-2">
+
+                @if (camposArticulo['descripcion'].errors['required']) {
+                    <span>La descripcion es necesaria</span>
+                }
+
+                @if (camposArticulo['descripcion'].errors['minlength']) {
+                    <span>La descripcion tiene que tener al menos 3 caracteres</span>
+                }
+                </div>
+            }
+
+        </div>
+        
+        <div class="mb-3 col-12 col-md-6">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+
+            @if ((camposArticulo['cantidad'].touched && camposArticulo['cantidad'].errors)) {
+                <div class="alert alert-danger mt-2">
+
+                @if (camposArticulo['cantidad'].errors['required']) {
+                    <span>La cantidad es necesaria</span>
+                }
+
+                    
+                @if (camposArticulo['cantidad'].errors['min']) {
+                    <span>Tiene que ser superior a 1</span>
+                }
+                </div>
+            }
+        </div>
+
+        <div class="mb-3 col-12 col-md-6">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select id="categoria" class="form-select" formControlName="categoria">
+                @for (cat of categorias; track cat) {
+                    <option value="{{cat.id}}">{{cat.nombre}}</option>
+                }
+            </select>
+
+            @if ((camposArticulo['categoria'].touched && camposArticulo['categoria'].errors)) {
+                <div class="alert alert-danger mt-2">
+
+                @if (camposArticulo['categoria'].errors['required']) {
+                    <span>La categoria es necesaria</span>
+                }
+
+                </div>
+            }
+        </div>
+
+        <div class="mb-3 col-12 col-md-6">
+            <label for="almacen" class="form-label">Almacén</label>
+            <select id="almacen" class="form-select" formControlName="almacen">
+                @for (alm of almacenes; track alm) {
+                    <option value="{{alm.id}}">{{alm.nombre}}</option>
+                }
+            </select>
+
+            @if ((camposArticulo['almacen'].touched && camposArticulo['almacen'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposArticulo['almacen'].errors['required']) {
+                    <span>El almacén es necesario</span>
+                }
+                </div>
+            }
+        </div>
+        
+        <div class="mb-3 col-12">
+            <label for="ubicacion" class="form-label">Ubicación</label>
+            <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion">
+
+            @if ((camposArticulo['ubicacion'].touched && camposArticulo['ubicacion'].errors)) {
+                <div class="alert alert-danger mt-2">
+
+                @if (camposArticulo['ubicacion'].errors['required']) {
+                    <span>La ubicación es necesaria</span>
+                }
+
+                    
+                @if (camposArticulo['ubicacion'].errors['minlength']) {
+                    <span>La ubicacion tiene que tener al menos 4 caracteres</span>
+                }
+                </div>
+            }
+        </div>
+        
+        <div class="mb-3 col-12 col-md-6">
+            <label for="peso" class="form-label">Peso</label>
+            <input type="text" class="form-control" id="peso" formControlName="peso">
+
+            @if ((camposArticulo['peso'].touched && camposArticulo['peso'].errors)) {
+                <div class="alert alert-danger mt-2">
+
+                @if (camposArticulo['peso'].errors['required']) {
+                    <span>El peso es necesario</span>
+                }
+
+                    
+                @if (camposArticulo['peso'].errors['minlength']) {
+                    <span>El peso tiene que tener al menos 2 caracteres</span>
+                }
+                </div>
+            }
+        </div>
+        
+        <div class="mb-3 col-12 col-md-6">
+            <label for="serie" class="form-label">Serie</label>
+            <input type="text" class="form-control" id="serie" formControlName="serie">
+
+            @if ((camposArticulo['serie'].touched && camposArticulo['serie'].errors)) {
+                <div class="alert alert-danger mt-2">
+
+                @if (camposArticulo['serie'].errors['required']) {
+                    <span>La serie es necesaria</span>
+                }
+
+                    
+                @if (camposArticulo['serie'].errors['minlength']) {
+                    <span>La serie tiene que tener al menos 2 caracteres</span>
+                }
+                </div>
+            }
+        </div>
+        
+        <div class="mb-3 col-12">
+            <input type="checkbox" class="form-check-input me-2" id="estadoInvalido" formControlName="estadoProducto">
+            <label for="estadoInvalido" class="form-check-label">Estado invalido</label>
+        </div>
+    
+
+
+        <div class="col-12 col-md-3 mb-3">
+            <input class="btn btn-primary w-100" type="button" value="Agregar artículo" (click)="agregarProductos()">
+        </div>
+    </div>
+</form>
+
+<!-- PRODUCTOS EN EL ALMACÉN -->
+
+<hr>
+
+<h3>Productos registrados en el almacén</h3>
+
+<form>
+    <label class="form-label" for="buscar">Buscar</label>
+    <input class="form-control" type="text" name="buscar" id="buscar" [(ngModel)]="descripcionBuscar">
+    
+    <div class="col-12 col-md-3 my-3">
+        <input class="btn btn-primary w-100" type="button" value="Buscar productos" (click)="buscarDescripcionProducto()">
+    </div>
+</form>
+
+<div class="col-12 table-container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">Descripción</th>
+              <th scope="col">Serie</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Ubicación</th>
+              <th scope="col">Almacén</th>
+              <th scope="col">+</th>
+            </tr>
+          </thead>
+        
+          <tbody>
+            @for (ar of productosAlmacen; track ar) {
+            <tr>
+                <td>{{ar.descripcion}}</td>
+                <td>{{ar.serie}}</td>
+                <td>{{ar.cantidad}}</td>
+                <td>{{ar.categoria.nombre}}</td>
+                <td>{{ar.ubicacion}}</td>
+                <td>{{ar.almacen.nombre}}</td>
+                <td><button class="btn btn-danger" (click)="escogerProducto(ar.id)">Escoger producto</button></td>
+            </tr>
+            }
+          </tbody>
+    </table>
+</div>

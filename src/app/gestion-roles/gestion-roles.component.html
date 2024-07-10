@@ -1,0 +1,82 @@
+<div class="row">
+    <h3>Gestion Rol</h3>
+    
+    <form [formGroup]="rolForm">
+        <div class="col-12 mb-3">
+        <hr>
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre">
+
+            @if ((camposRol['nombre'].touched && camposRol['nombre'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposRol['nombre'].errors['required']) {
+                    <span>El nombre es necesario</span>
+                }
+                
+                @if (camposRol['nombre'].errors['minlength']) {
+                    <span>El nombre debe de tener al menos 3 caracteres</span>
+                }
+                </div>
+            }
+        </div>
+
+        @if (editarMode) {
+            <div class="col-12 mb-3">
+                <label for="estado" class="form-label">Estado</label>
+
+                <select name="estado" id="estado" formControlName="estado" class="form-select">
+                    <option value="true">Habilitado</option>
+                    <option value="false">Deshabilitado</option>
+                </select>
+            </div>
+        }
+
+        <div class="d-flex justify-content-between flex-column flex-md-row gap-2">
+            <div class="col-12 col-md-3">
+                <button type="button" class="btn btn-primary w-100" (click)="enviarRol()">{{textobuttonCrearEditar}}</button>
+            </div>
+            
+            @if (editarMode) {
+                <div class="col-12 col-md-3">
+                    <input type="button" class="btn btn-primary w-100" value="Limpiar y crear" (click)="crearMode()">
+                </div>
+            }
+        </div>
+    </form>
+</div>
+
+<div class="row">
+
+    <div class="col-12 my-2">
+        <hr>
+        <form>
+            <label for="buscar" class="form-label">Buscar rol</label>
+            <input  type="text" class="form-control" id="buscar" placeholder="Buscar" (keyup)="searchTerm$.next(($any($event.target).value))">
+
+            <!-- <input  type="text" class="form-control" id="buscar"> -->
+        </form>
+    </div>
+
+    <div class="col-12 table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Editar</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                @for (rol of rolesFiltered; track rol) {
+                    <tr>
+                        <td>{{rol.nombre}}</td>
+                        <td>{{rol.estado}}</td>
+                        <td><button class="btn btn-success" (click)="activarEditar(rol.id)">Editar</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

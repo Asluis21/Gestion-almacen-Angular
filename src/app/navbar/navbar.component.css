@@ -1,0 +1,23 @@
+.img-logo{
+    width: 67px;
+}
+
+.link-logo{
+    cursor: pointer;
+}
+
+.cerrar-sesion{
+    border-radius: 25px;
+    padding: 0 10px;
+    color: rgb(105 128 162);
+    cursor: pointer;
+}
+
+.cerrar-sesion:hover{
+    color: #000;
+    opacity: 1;
+    background-color: #d0d0cb;
+    transition: background-color 0.5s ease;
+
+}
+

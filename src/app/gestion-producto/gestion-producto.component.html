@@ -1,0 +1,145 @@
+<h2>Gestion de Productos</h2>
+<hr>
+
+    @if (productoFormVisible) {
+
+        <form [formGroup]="productoForm">
+            <div class="row">
+        
+                <div class="mb-3 col-12">
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <select id="categoria" class="form-select" formControlName="categoria">
+                        @for (cat of categorias; track cat) {
+                            <option value="{{cat.id}}">{{cat.nombre}}</option>
+                        }
+                    </select>
+            
+                @if (camposArticulo['categoria'].touched && camposArticulo['categoria'].errors) {
+                    <div class="alert alert-danger mt-2">
+            
+                    @if (camposArticulo['categoria'].errors['required']) {
+                        <span>La categoria es necesaria</span>
+                    }
+            
+                    </div>
+                }
+            
+                </div>
+            
+            
+                <div class="mb-3 col-md-6 col-12">
+                    <label for="ubicacion" class="form-label">Ubicación</label>
+                    <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion">
+            
+                    @if ((camposArticulo['ubicacion'].touched && camposArticulo['ubicacion'].errors)) {
+                        <div class="alert alert-danger mt-2">
+            
+                        @if (camposArticulo['ubicacion'].errors['required']) {
+                            <span>La ubicación es necesaria</span>
+                        }
+            
+                            
+                        @if (camposArticulo['ubicacion'].errors['minlength']) {
+                            <span>La ubicacion tiene que tener al menos 4 caracteres</span>
+                        }
+                        </div>
+                    }
+                </div>
+            
+                <div class="mb-3 col-12 col-md-6">
+                    <label for="peso" class="form-label">Peso</label>
+                    <input type="text" class="form-control" id="peso" formControlName="peso">
+            
+                    @if ((camposArticulo['peso'].touched && camposArticulo['peso'].errors)) {
+                        <div class="alert alert-danger mt-2">
+            
+                        @if (camposArticulo['peso'].errors['required']) {
+                            <span>El peso es necesario</span>
+                        }
+            
+                            
+                        @if (camposArticulo['peso'].errors['minlength']) {
+                            <span>El peso tiene que tener al menos 2 caracteres</span>
+                        }
+                        </div>
+                    }
+                </div>
+            
+                <div class="mb-3 col-12">
+                    <input type="checkbox" class="form-check-input me-2" id="estadoInvalido" formControlName="estadoProducto">
+                    <label for="estadoInvalido" class="form-check-label">Estado invalido</label>
+                </div>
+            
+            
+            
+                <div class="col-12 col-md-3 mb-3">
+                    <input class="btn btn-primary w-100" type="button" value="Editar producto" (click)="editarProducto()">
+                </div>
+            </div>
+            
+        </form>
+    }
+
+
+
+
+<div class="row">
+
+    <div class="mb-3 col-12">
+        <label for="almacen" class="form-label">Almacén</label>
+            <select id="almacen" class="form-select" (change)="cambiarAlmacen($any($event))">
+                @for (alm of almacenes; track alm) {
+                    <option value="{{alm.id}}">{{alm.nombre}}</option>
+                }
+            </select>
+    </div>
+</div>
+
+<div class="col-12 my-2">
+    <hr>
+    <form>
+        <label for="buscar" class="form-label">Buscar Producto</label>
+        <input  type="text" class="form-control" id="buscar" placeholder="Buscar" (keyup)="searchTerm$.next(($any($event.target).value))">
+
+        <!-- <input  type="text" class="form-control" id="buscar"> -->
+    </form>
+</div>
+
+<div class="row">
+    
+    <div class="col-12 table-container">
+        <h3>Productos</h3>
+        <hr>
+    
+    <table class="table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">Descripción</th>
+              <th scope="col">Serie</th>
+              <th scope="col">Peso</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Ubicación</th>
+              <th scope="col">Almacén</th>
+              <th scope="col">Estado Producto</th>
+              <th scope="col">+</th>
+            </tr>
+          </thead>
+        
+          <tbody>
+            @for (ar of productosFiltrado; track ar) {
+            <tr>
+                <td>{{ar.descripcion}}</td>
+                <td>{{ar.serie}}</td>
+                <td>{{ar.peso}}</td>
+                <td>{{ar.cantidad}}</td>
+                <td>{{ar.categoria.nombre}}</td>
+                <td>{{ar.ubicacion}}</td>
+                <td>{{ar.almacen.nombre}}</td>
+                <td>{{ar.estadoProducto}}</td>
+                <td><button class="btn btn-danger" (click)="rellenarForm(ar.id)">Editar</button></td>
+            </tr>
+            }
+          </tbody>
+    </table>
+</div>

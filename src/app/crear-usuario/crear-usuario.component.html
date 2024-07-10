@@ -1,0 +1,210 @@
+<div class="row">
+  <h3>Gestion Usuarios</h3>
+  
+  <div class="col-12">
+    <hr>
+    <form [formGroup]="usuario">
+        <div class="row">
+
+            <div class="mb-3 col-12">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre">
+    
+              @if ((camposUsuario['nombre'].touched && camposUsuario['nombre'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposUsuario['nombre'].errors['required']) {
+                    <span>El nombre es necesario</span>
+                }
+                
+                @if (camposUsuario['nombre'].errors['minlength']) {
+                    <span>El nombre debe de tener al menos 2 caracteres</span>
+                }
+                </div>
+              }
+            </div>
+            
+            <div class="mb-3 col-12 col-md-6">
+              <label for="apellidoPaterno" class="form-label">Apellido Paterno</label>
+              <input type="text" class="form-control" id="apellidoPaterno" formControlName="apellidoPaterno">
+    
+              @if ((camposUsuario['apellidoPaterno'].touched && camposUsuario['apellidoPaterno'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposUsuario['apellidoPaterno'].errors['required']) {
+                    <span>El apellido paterno es necesario</span>
+                }
+                
+                @if (camposUsuario['apellidoPaterno'].errors['minlength']) {
+                    <span>El apellido paterno debe de tener al menos 2 caracteres</span>
+                }
+                </div>
+              }
+            </div>
+            
+            <div class="mb-3 col-12 col-md-6">
+              <label for="apellidoMaterno" class="form-label">Apellido Materno</label>
+              <input type="text" class="form-control" id="apellidoMaterno" formControlName="apellidoMaterno">
+    
+              @if ((camposUsuario['apellidoMaterno'].touched && camposUsuario['apellidoMaterno'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposUsuario['apellidoMaterno'].errors['required']) {
+                    <span>El apellido materno es necesario</span>
+                }
+                
+                @if (camposUsuario['apellidoMaterno'].errors['minlength']) {
+                    <span>El apellido materno debe de tener al menos 2 caracteres</span>
+                }
+                </div>
+              }
+            </div>
+            
+            <div class="mb-3 col-12 col-md-6">
+              <label for="dni" class="form-label">DNI</label>
+              <input type="number" class="form-control" id="dni" formControlName="dni">
+    
+              @if ((camposUsuario['dni'].touched && camposUsuario['dni'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposUsuario['dni'].errors['required']) {
+                    <span>El DNI es necesario</span>
+                }
+                
+                @if (camposUsuario['dni'].errors['min'] || camposUsuario['dni'].errors['max']) {
+                    <span>El DNI debe de tener 8 dígitos</span>
+                }
+                </div>
+              }
+            </div>
+            
+            <div class="mb-3 col-12 col-md-6">
+              <label for="rol" class="form-label">Rol</label>
+              <select id="rol" class="form-select" formControlName="rol">
+                @for (rol of roles; track rol) {
+                  <option value="{{rol.id}}">{{rol.nombre}}</option>  
+                }
+              </select>
+    
+              @if ((camposUsuario['rol'].touched && camposUsuario['rol'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposUsuario['rol'].errors['required']) {
+                    <span>El rol es necesario</span>
+                }
+    
+                </div>
+              }
+            </div>
+            
+            <div class="mb-3 col-12">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" formControlName="username">
+    
+              @if ((camposUsuario['username'].touched && camposUsuario['username'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposUsuario['username'].errors['required']) {
+                    <span>El usuario es necesario</span>
+                }
+                
+                @if (camposUsuario['username'].errors['minlength']) {
+                    <span>El usuario debe de tener al menos 2 caracteres</span>
+                }
+                </div>
+              }
+            </div>
+        
+            @if (!editarMode) {
+              <div class="mb-3 col-12">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" formControlName="password">
+      
+                @if ((camposUsuario['password'].touched && camposUsuario['password'].errors)) {
+                  <div class="alert alert-danger mt-2">
+      
+                  @if (camposUsuario['password'].errors['required']) {
+                      <span>El password es necesario</span>
+                  }
+                  
+                  @if (camposUsuario['password'].errors['minlength']) {
+                      <span>El password debe de tener al menos 3 caracteres</span>
+                  }
+                  </div>
+                }
+              </div>
+            }
+
+            @if (editarMode) {
+              <div class="col-12 mb-3">
+                  <label for="estado" class="form-label">Estado</label>
+  
+                  <select name="estado" id="estado" formControlName="estado" class="form-select">
+                      <option value="true">Habilitado</option>
+                      <option value="false">Deshabilitado</option>
+                  </select>
+              </div>
+            }
+            
+            <div class="d-flex justify-content-between flex-column flex-md-row gap-2">
+              <div class="col-12 col-md-3">
+                  <button type="button" class="btn btn-primary w-100" (click)="enviarUsuario()">{{textbotonCrearEditar}}</button>
+              </div>
+              
+              @if (editarMode) {
+                  <div class="col-12 col-md-3">
+                      <input type="button" class="btn btn-primary w-100" value="Limpiar y crear" (click)="crearMode()">
+                  </div>
+              }
+            </div>
+
+            
+        </div>
+    </form>
+  </div>
+
+  <div class="col-12 my-2">
+    <hr>
+    <form>
+        <label for="buscar" class="form-label">Buscar por DNI</label>
+        <input  type="text" class="form-control" id="buscar" placeholder="Buscar" (keyup)="searchTerm$.next(($any($event.target).value))">
+
+        <!-- <input  type="text" class="form-control" id="buscar"> -->
+    </form>
+  </div>
+
+  <div class="col-12 table-container">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellidos</th>
+              <th scope="col">DNI</th>
+              <th scope="col">Username</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Editar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (u of usuariosFiltered; track u) {
+                <tr>
+                    <td>{{u.nombre}}</td>
+                    <td>{{u.apellidoPaterno + " " + u.apellidoMaterno}}</td>
+                    <td>{{u.dni}}</td>
+                    <td>{{u.username}}</td>
+                    <td>{{u.rol.nombre}}</td>
+                    <td>{{u.estado}}</td>
+                    <td><button class="btn btn-success" (click)="activarEditar(u.id)">Editar</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+html, body{
+    height: 100%;
+}
+
+/* body{
+    padding-top: 46px;
+} */
+
+a{
+    text-decoration: none !important;
+}
+
+.table-container { 
+    overflow-y: auto; 
+    max-height: 430px; 
+} 
+.table-container thead th { 
+    position: sticky; 
+    top: 0; 
+} 
+table { 
+    border-collapse: collapse;         
+    width: 100%; 
+} 
+
+th, 
+td { 
+    padding: 8px 15px; 
+    text-align: center !important;
+}
+

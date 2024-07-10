@@ -1,0 +1,48 @@
+.img-tablero{
+    width: 292px;
+    height: 250px;
+    transform: rotate(15deg);
+    position: relative;
+}
+
+.caja{
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.img-container{
+    color: #6B8A7A;
+    position: relative;
+}
+
+.link-contenido{
+    border-radius: 25px;
+    padding: 15px;
+    text-align: center;
+}
+
+.link-contenido:hover{
+    color: #000;
+    opacity: 1;
+    background-color: #e4e4e2;
+    transition: background-color 0.5s ease;
+}
+
+
+.txt-orden{
+    font-size: 23px;
+    color: #254336;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+
+    .componente-link-registrar{
+        margin-top: 50px;
+    }
+}
+

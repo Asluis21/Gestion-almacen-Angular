@@ -1,0 +1,102 @@
+<div class="row">
+    <h3>Gestion Almacén</h3>
+    
+    <form [formGroup]="almacenForm">
+        <div class="col-12 mb-3">
+        <hr>
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" formControlName="nombre">
+
+            @if ((camposAlmacen['nombre'].touched && camposAlmacen['nombre'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposAlmacen['nombre'].errors['required']) {
+                    <span>El nombre es necesario</span>
+                }
+                
+                @if (camposAlmacen['nombre'].errors['minlength']) {
+                    <span>El nombre debe de tener al menos 3 caracteres</span>
+                }
+                </div>
+            }
+        </div>
+        
+        <div class="col-12 mb-3">
+            <label for="ubicacion" class="form-label">Ubicación</label>
+            <input type="text" class="form-control" name="ubicacion" id="ubicacion" formControlName="ubicacion">
+
+            @if ((camposAlmacen['ubicacion'].touched && camposAlmacen['ubicacion'].errors)) {
+                <div class="alert alert-danger mt-2">
+    
+                @if (camposAlmacen['ubicacion'].errors['required']) {
+                    <span>La ubicación es necesaria</span>
+                }
+                
+                @if (camposAlmacen['ubicacion'].errors['minlength']) {
+                    <span>La ubicación debe de tener al menos 3 caracteres</span>
+                }
+                </div>
+            }
+        </div>
+
+        @if (editarMode) {
+            <div class="col-12 mb-3">
+                <label for="estado" class="form-label">Estado</label>
+
+                <select name="estado" id="estado" formControlName="estado" class="form-select">
+                    <option value="true">Habilitado</option>
+                    <option value="false">Deshabilitado</option>
+                </select>
+            </div>
+        }
+
+        <div class="d-flex justify-content-between flex-column flex-md-row gap-2">
+            <div class="col-12 col-md-3">
+                <button type="button" class="btn btn-primary w-100" (click)="enviarAlmacen()">{{textobuttonCrearEditar}}</button>
+            </div>
+            
+            @if (editarMode) {
+                <div class="col-12 col-md-3">
+                    <input type="button" class="btn btn-primary w-100" value="Limpiar y crear" (click)="crearMode()">
+                </div>
+            }
+        </div>
+    </form>
+</div>
+
+<div class="row">
+
+    <div class="col-12 my-2">
+        <hr>
+        <form>
+            <label for="buscar" class="form-label">Buscar Almacén</label>
+            <input  type="text" class="form-control" id="buscar" placeholder="Buscar" (keyup)="searchTerm$.next(($any($event.target).value))">
+
+            <!-- <input  type="text" class="form-control" id="buscar"> -->
+        </form>
+    </div>
+
+    <div class="col-12 table-container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Ubicación</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Editar</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                @for (alm of almacenesFiltered; track alm) {
+                    <tr>
+                        <td>{{alm.nombre}}</td>
+                        <td>{{alm.ubicacion}}</td>
+                        <td>{{alm.estado}}</td>
+                        <td><button class="btn btn-success" (click)="activarEditar(alm.id)">Editar</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

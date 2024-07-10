@@ -1,0 +1,48 @@
+.contenedor-login{
+    /* background-color: #DAD3BE; */
+    /* background: linear-gradient(90deg, #6BB5B6 0%, #A0D5EB 100%); */
+    background: linear-gradient(90deg, #b5bf7d 0%, #437285 100%);
+    max-width: 500px;
+    /* height: 467px; */
+    margin: 0 auto;
+}
+
+body{
+    padding-top: 0 !important;
+}
+
+.container-fluid{
+    background-image: url(../../../src/assets/img/almacen.jpeg);
+    background-repeat: repeat;
+    background-size:cover
+}
+
+.form-control{
+    height: 50px;
+}
+
+h1{
+    color: #254336
+}
+
+.btn{
+    background-color: #6B8A7A;
+    border:#6B8A7A;
+}
+
+.card-header{
+    /* background: linear-gradient(90deg, #6BB5B6 0%, #A0D5EB 100%); */
+    background: linear-gradient(90deg, #536344 0%, #A0D5EB 100%);
+    border-radius: 4px 4px 0px 0px;
+    box-shadow: 4px 4px 12px rgba(68, 88, 100, 0.2), -4px -4px 12px rgba(231, 231, 231, 0.5);
+    max-width: 500px;
+    margin: 0 auto;
+    color: transparent;
+    height: 13px;
+}
+
+.btn-primary:active{
+    background-color: #fff;
+    border-color: #fff;
+    color: #6B8A7A;
+}

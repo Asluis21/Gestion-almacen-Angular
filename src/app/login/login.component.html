@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="row align-items-center justify-content-center min-vh-100 d-flex flex-column">
+
+      <div class="card-header"></div>
+
+      <div class="contenedor-login p-4">
+
+          <h1 class="text-center m-4">Ingreso</h1>
+
+          <form [formGroup]="loginForm">
+              <div class="mb-4">
+                <!-- <label for="input_usuario" class="form-label">Usuario</label> -->
+                <input type="text" class="form-control" placeholder="Usuario" formControlName="usuario">
+              </div>
+              
+              <div class="mb-4">
+                <!-- <label for="input-password" class="form-label">Contraseña</label> -->
+                <input type="password" class="form-control" placeholder="Contraseña" formControlName="password">
+              </div>
+
+              <div class="row">
+                  <div class="col-12 pt-2 pb-4">
+                      <input type="submit" id="ingresar" name="ingresar" value="Ingresar" class="btn btn-primary w-100" (click)="login()">
+                  </div>
+              </div>
+            </form>
+      </div>
+    </div>
+</div>

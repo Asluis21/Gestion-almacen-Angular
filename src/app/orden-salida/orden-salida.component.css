@@ -1,0 +1,31 @@
+/* .table-contenido { 
+    overflow-y: auto; 
+    height: 430px; 
+} 
+.table-contenido thead th { 
+    position: sticky; 
+    top: 0; 
+} 
+table { 
+    border-collapse: collapse;         
+    width: 100%; 
+} 
+
+th, 
+td { 
+    padding: 8px 15px; 
+    text-align: center;
+}  */
+
+.cantidadRetiro{
+    width: 65px;
+}
+
+.productos-retiro{
+    /* max-height: 750px; */
+
+    /* CON  max-height: 100%; EL SCROLL SE VE EN LA PARTE DE ABAJO DE LA PANTALLA*/
+    /* SIN  max-height: 100%; EL SCROLL SE AJUSTA A LOS REGISTROS LLENADOS*/
+    max-height: 100%; 
+    overflow: auto;
+}
